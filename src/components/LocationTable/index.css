@@ -1,5 +1,6 @@
 .location-table-container {
   overflow-x: scroll;
+  background-color: #f0f2f3;
 }
 
 .ant-empty-image {
@@ -48,8 +49,8 @@
 }
 
 .ant-table-footer {
-  padding: 0px;
-  background-color: #f0f2f3;
+  padding: 0px !important;
+  background-color: #f0f2f3 !important;
 }
 
 .ant-table-container table > thead > tr:first-child th:last-child {
@@ -58,6 +59,7 @@
 }
 
 .header-container {
+  margin-left: 15px;
   display: flex;
   width: 95vw;
   border-radius: 20px;
@@ -91,7 +93,6 @@
 
 .body-container {
   width: 95vw;
-  margin-top: 10px;
   display: flex;
   border-radius: 20px;
   box-shadow: 7px 7px 5px 0px #d1d3d5;
@@ -122,12 +123,15 @@
 .body-middle {
   background-color: #fff;
   line-height: 40px;
-  min-height: 40px;
+  height: 40px;
   font-size: 14px;
   font-weight: 500;
   width: 22vw;
   text-align: center;
   color: #8a8987;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .body-action {
@@ -145,8 +149,8 @@
   position: absolute;
   top: 25%;
   right: 4vw;
-  color: #f6b643;
-  cursor: pointer;
+  color: #f6b643 !important;
+  cursor: pointer !important;
 }
 
 .delete-icon {
@@ -154,8 +158,8 @@
   position: absolute;
   top: 25%;
   right: 2vw;
-  color: #ef7163;
-  cursor: pointer;
+  color: #ef7163 !important;
+  cursor: pointer !important;
 }
 
 .footer {
@@ -164,7 +168,7 @@
   width: 95vw;
   border-radius: 25px;
   box-shadow: 7px 7px 5px 0px #d1d3d5;
-  margin-top: 10px;
+  margin: 0 0 10px 15px;
 }
 
 .footer-inner-container {
@@ -210,8 +214,8 @@
 
 .page-change-icon {
   font-size: 16px;
-  line-height: 50px;
-  color: #8a8987;
-  cursor: pointer;
+  line-height: 50px !important;
+  color: #8a8987 !important;
+  cursor: pointer !important;
   width: 20vw;
 }

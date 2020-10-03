@@ -24,9 +24,9 @@ const TableDetails = props => {
     key: 'id',
     render: (id, record) => <div className='body-container'>
       <div className='body-id'><div className='container-id'>{id}</div></div>
-      <div className='body-middle'>{record.locationName}</div>
-      <div className='body-middle'>{record.address}</div>
-      <div className='body-middle'>{record.phoneNo}</div>
+      <div className='body-middle'>{record.name}</div>
+      <div className='body-middle'>{`${record.addressLine1} ${record.addressLine2} ${record.suiteNo} ${record.city} ${record.state.name || ''}`}</div>
+      <div className='body-middle'>{record.phoneNumber}</div>
       <div className='body-action'>
         <EditOutlined
           className='edit-icon'
@@ -34,40 +34,42 @@ const TableDetails = props => {
         />
         <DeleteOutlined
           className='delete-icon'
-          onClick={() => props.deleteLocation(record)}
+          onClick={() => props.deleteLocation(record.id)}
         />
       </div>
     </div>,
   }];
 
-  const footer = () => <div className='footer'>
-    <div className='footer-inner-container'>
-      <div className='page-number-dropdown-container'>
-        Items per page:
-        <select defaultValue={props.recordsPerPage} className='page-number-dropdown'>
-          <option value={10}>10</option>
-          <option value={20}>20</option>
-          <option value={30}>30</option>
-        </select>
-      </div>
-      <div className='page-number-info-container'>{props.currentPage} - {props.currentPage} of {props.totalPages}</div>
-      <div className='page-change-icon-container'>
-        <VerticalRightOutlined
-          className='page-change-icon'
-          onClick={() => props.startPage()}
-        />
-        <LeftOutlined
-          className='page-change-icon'
-          onClick={() => props.previousPage()}
-        />
-        <RightOutlined
-          className='page-change-icon'
-          onClick={() => props.nextPage()}
-        />
-        <VerticalLeftOutlined
-          className='page-change-icon'
-          onClick={() => props.lastPage()}
-        />
+  const footer = () => <div style={{ width: '100%', height: '100%', backgroundColor: '#f0f2f3' }}>
+    <div className='footer'>
+      <div className='footer-inner-container'>
+        <div className='page-number-dropdown-container'>
+          Items per page:
+          <select defaultValue={props.recordsPerPage} className='page-number-dropdown' onChange={event => props.changeRecordsPerPage(parseInt(event.target.value))}>
+            <option value={10}>10</option>
+            <option value={20}>20</option>
+            <option value={30}>30</option>
+          </select>
+        </div>
+        <div className='page-number-info-container'>{props.currentPage} - {props.totalPages} of {props.totalPages}</div>
+        <div className='page-change-icon-container'>
+          <VerticalRightOutlined
+            className='page-change-icon'
+            onClick={() => props.startPage()}
+          />
+          <LeftOutlined
+            className='page-change-icon'
+            onClick={() => props.previousPage()}
+          />
+          <RightOutlined
+            className='page-change-icon'
+            onClick={() => props.nextPage()}
+          />
+          <VerticalLeftOutlined
+            className='page-change-icon'
+            onClick={() => props.lastPage()}
+          />
+        </div>
       </div>
     </div>
   </div>

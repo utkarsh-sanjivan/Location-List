@@ -30,8 +30,8 @@
 }
 
 .apply-to-all-checked-button {
-  background-color: #fff;
-  color: #28618d;
-  border: 1px solid #28618d;
-  border-radius: 5px;
+  background-color: #fff !important;
+  color: #28618d !important;
+  border: 1px solid #28618d !important;
+  border-radius: 5px !important;
 }

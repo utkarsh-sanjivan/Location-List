@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { Modal, Input, Select } from 'antd';
+import React, { useState, useEffect } from 'react';
+import { Modal, Input, Select, Button } from 'antd';
 import { STATE_LIST, TIMEZONE_LIST } from './../../utils/constant';
 import { normalizePhoneNumber } from './../../utils/format';
 import { validateName, validateZipCode } from './../../utils/validate';
@@ -24,18 +24,30 @@ const AddLocationModal = props => {
   const [isNameValid, setIsNameValid] = useState(true);
   const [isZipCodeValid, setIsZipCodeValid] = useState(true);
 
+  useEffect(() => {
+    if (Object.keys(props.currentLocation).length>0) {
+      setFormState({ ...props.currentLocation })
+    };
+  }, [props.currentLocation]);
+
   return (
     <Modal
       {...props}
       title={
-          <div className="add-location-title">Add Location</div>
+        <div className="add-location-title">{Object.keys(props.currentLocation).length===0? 'Add Location': 'Edit Location'}</div>
       }
       visible={props.visible}
-      okText={'Save'}
+      okText={Object.keys(props.currentLocation).length===0? 'Save': 'Edit'}
       onOk={() => {
-        setIsNameValid(validateName(formState.name));
-        setIsZipCodeValid(validateZipCode(formState.zipCode));
-        if(validateName(formState.name) && validateZipCode(formState.zipCode)) props.saveLocation(formState);
+        if (Object.keys(props.currentLocation).length===0) {
+          setIsNameValid(validateName(formState.name));
+          setIsZipCodeValid(validateZipCode(formState.zipCode));
+          if(validateName(formState.name) && validateZipCode(formState.zipCode)) props.saveLocation(formState);
+        } else {
+          setIsNameValid(validateName(formState.name));
+          setIsZipCodeValid(validateZipCode(formState.zipCode));
+          if(validateName(formState.name) && validateZipCode(formState.zipCode)) props.updateLocation(formState);
+        }
       }}
       onCancel={e => props.closeModal()}
       width={800}
@@ -43,6 +55,7 @@ const AddLocationModal = props => {
       <div style={{ marginBottom: '25px' }}>
         <div className='input-title-text'>Location Name</div>
         <Input
+          value={formState.name}
           placeholder='Location Name'
           className='input-text'
           onChange={event => {
@@ -57,6 +70,7 @@ const AddLocationModal = props => {
         <div className='input-container-left'>
           <div className='input-title-text'>Address Line 1</div>
           <Input
+            value={formState.addressLine1}
             placeholder='Address Line 1'
             className='input-text'
             onChange={event => setFormState({ ...formState, addressLine1: event.target.value })}
@@ -65,6 +79,7 @@ const AddLocationModal = props => {
         <div className='input-container-right'>
           <div className='input-title-text'>Suite No.</div>
           <Input
+            value={formState.suiteNo}
             placeholder='Suite No.'
             className='input-text'
             onChange={event => setFormState({ ...formState, suiteNo: event.target.value})}
@@ -76,6 +91,7 @@ const AddLocationModal = props => {
         <div className='input-container-left'>
           <div className='input-title-text'>Address Line 2</div>
           <Input
+            value={formState.addressLine2}
             placeholder='Address Line 2'
             className='input-text'
             onChange={event => setFormState({ ...formState, addressLine2: event.target.value })}
@@ -85,6 +101,7 @@ const AddLocationModal = props => {
           <div className='input-container-left'>
             <div className='input-title-text'>City</div>
             <Input
+              value={formState.city}
               placeholder='City'
               className='input-text'
               onChange={event => setFormState({ ...formState, city: event.target.value })}
@@ -93,6 +110,7 @@ const AddLocationModal = props => {
           <div className='input-container-right'>
             <div className='input-title-text'>State</div>
             <Select
+              value={formState.state.name}
               placeholder='State'
               bordered={false}
               showArrow={false}
@@ -113,6 +131,7 @@ const AddLocationModal = props => {
           <div className='input-container-left'>
             <div className='input-title-text'>Zip Code</div>
             <Input
+              value={formState.zipCode}
               placeholder='Zip Code'
               className='input-text'
               onChange={event => {
@@ -138,6 +157,7 @@ const AddLocationModal = props => {
         <div className='input-container-right'>
           <div className='input-title-text'>Time Zone</div>
           <Select
+            value={formState.timeZone}
             placeholder='Time Zone'
             bordered={false}
             showArrow={false}
@@ -151,16 +171,12 @@ const AddLocationModal = props => {
 
       <div style={{ display: 'flex', marginBottom: '25px' }}>
         <div className='input-container-left'>
-          <div className='input-title-text'>Facility</div>
-          {/* <Input
-            placeholder='Facility'
-            className='input-text'
-            onChange={event => setFormState({ ...formState, facility: event.target.value })}
-          /> */}
+          <Button className='facility-button' type="text" onClick={props.handleFacility}>Set Facility</Button>
         </div>
         <div className='input-container-right'>
           <div className='input-title-text'>Appointment Pool</div>
           <Select
+            value={formState.appointmentList.join(',')}
             mode="multiple"
             placeholder='Appointment Pool'
             bordered={false}

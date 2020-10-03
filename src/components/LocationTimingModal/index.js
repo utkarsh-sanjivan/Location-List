@@ -10,7 +10,7 @@ import { DAY_LIST } from './../../utils/constant';
 import './index.css';
 
 export default function LoactionTiming(props) {
-  const [ daysList, setDaysList ] = useState(DAY_LIST.map(day => {
+  const [daysList, setDaysList] = useState(DAY_LIST.map(day => {
     return {
       ...day,
       isChecked: false,
@@ -28,7 +28,7 @@ export default function LoactionTiming(props) {
       visible={props.visible}
       okText={'Save'}
       onOk={() => {
-        
+        props.saveLocationTiming(daysList);
       }}
       onCancel={e => props.closeModal()}
       width={800}
@@ -57,6 +57,7 @@ export default function LoactionTiming(props) {
           <div className='grid-cell-from'>
             <TimePicker
               value={day.to}
+              allowClear={false}
               use12Hours
               format={'HH:mm'}
               onChange={event => {
@@ -70,6 +71,7 @@ export default function LoactionTiming(props) {
           <div className='grid-cell-to'>
             <TimePicker
               value={day.from}
+              allowClear={false}
               use12Hours
               format={'HH:mm'}
               onChange={event => {
