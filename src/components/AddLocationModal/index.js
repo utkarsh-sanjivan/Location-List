@@ -25,14 +25,8 @@ const AddLocationModal = props => {
   const [isZipCodeValid, setIsZipCodeValid] = useState(true);
 
   useEffect(() => {
-    if (Object.keys(props.currentLocation).length>0) {
-      setFormState({ ...props.currentLocation, facility: props.facilityTiming });
-    };
-  }, [props.currentLocation]);
-
-  useEffect(() => {
-    setFormState({ ...formState, facility: props.facilityTiming });
-  }, [props.facilityTiming]);
+    if (Object.keys(props.currentLocation).length>0) setFormState({ ...props.currentLocation });
+  }, [props.currentLocation])
 
   return (
     <Modal
@@ -50,7 +44,6 @@ const AddLocationModal = props => {
         } else {
           setIsNameValid(validateName(formState.name));
           setIsZipCodeValid(validateZipCode(formState.zipCode));
-          debugger;
           if(validateName(formState.name) && validateZipCode(formState.zipCode)) props.updateLocation(formState);
         }
       }}

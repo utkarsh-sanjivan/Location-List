@@ -4,7 +4,7 @@ import LocationTable from './../../components/LocationTable';
 import AddLocationButton from './../../components/AddLocationButton';
 import AddLocationModal from './../../components/AddLocationModal';
 import LocationTimingModal from './../../components/LocationTimingModal';
-import moment from 'moment';
+import moment from 'moment'; 
 import { DAY_LIST, DAYS_OBJ } from './../../utils/constant';
 import './index.css';
 
@@ -13,7 +13,7 @@ export default function HomePage(props) {
   const [loading, setLoading] = useState(false);
   const [locationList, setLocationList] = useState([]);
   const [viewlocationList, setViewLocationList] = useState([]);
-  const [facilityTiming, setFacilityTiming] = useState(DAYS_OBJ);
+  const [facilityTiming, setFacilityTiming] = useState(DAY_LIST);
   const [currentLocation, setCurrentLocation] = useState({});
   const [addLocationModal, setAddLocationModal] = useState(false);
   const [locationTimingModal, setLocationTimingModal] = useState(false);
@@ -28,24 +28,37 @@ export default function HomePage(props) {
   const getAllLocations = () => {
     setLoading(true);
     getAll().then(locationListDB => {
+      const tempLocationListDB = locationListDB.map(location => { 
+        return { 
+          ...location, 
+          facility: JSON.parse(location.facility).map(facility => { 
+            return { 
+              ...facility,
+              to: moment(facility.to),
+              from: moment(facility.from)
+            }
+          })
+        } 
+      });
       setLoading(false);
-      setLocationList(locationListDB);
-      setViewLocationList(locationListDB.slice(10*(currentPage-1), 10*currentPage));
+      setLocationList(tempLocationListDB);
+      setViewLocationList(tempLocationListDB.slice(10*(currentPage-1), 10*currentPage));
       setTotalPage(Math.ceil(locationListDB.length/recordsPerPage));
     });
   }
 
   const addLocation = loc => {
-    delete loc.facility;
-    debugger;
+    loc.facility = JSON.stringify(loc.facility);
     const id = locationList.length>0? parseInt(locationList[locationList.length-1].id)+1: 1;
     add({ ...loc, id }).then(() => {
       getAllLocations();
       setAddLocationModal(false);
+      setFacilityTiming(DAY_LIST);
     });
   }
 
   const updateLocation = loc => {
+    loc.facility = JSON.stringify(loc.facility);
     setCurrentLocation({});
     update({ ...loc }).then(() => {
       getAllLocations();
@@ -58,6 +71,7 @@ export default function HomePage(props) {
   }
 
   const handleEditLocation = loc => {
+    setFacilityTiming(loc.facility);
     setCurrentLocation(loc);
     setAddLocationModal(true);
   }
@@ -141,7 +155,6 @@ export default function HomePage(props) {
       saveLocation={addLocation}
       updateLocation={updateLocation}
       handleFacility={() => handleFacility()}
-      facilityTiming={facilityTiming}
       closeModal={() =>{ 
         setCurrentLocation({});
         setAddLocationModal(false)
@@ -152,14 +165,15 @@ export default function HomePage(props) {
       visible={locationTimingModal}
       setFacilityTiming={setFacilityTiming}
       saveLocationTiming={() => {
-        setFacilityTiming(DAYS_OBJ);
+        setFacilityTiming(DAY_LIST);
         setAddLocationModal(true);
         setLocationTimingModal(false);
       }}
       closeModal={() => {
         setAddLocationModal(true);
-        setLocationTimingModal(false)}
-      }
+        setLocationTimingModal(false);
+        setFacilityTiming(DAY_LIST);
+      }}
     />
   </div>);
 }

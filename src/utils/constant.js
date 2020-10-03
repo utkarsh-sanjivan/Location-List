@@ -454,21 +454,21 @@ export const TIMEZONE_LIST = [
 ]
 
 export const DAY_LIST = [
-  { id: 'mon', name: 'Monday'  },
-  { id: 'tue', name: 'Tuesday'  },
-  { id: 'wed', name: 'Wednesday'  },
-  { id: 'thu', name: 'Thursday'  },
-  { id: 'fri', name: 'Friday'  },
-  { id: 'sat', name: 'Saturday'  },
-  { id: 'sun', name: 'Sunday'  },
+  { id: 'mon', name: 'Monday', to: moment(), from: moment().subtract(2, 'hours'), isChecked: false },
+  { id: 'tue', name: 'Tuesday', to: moment(), from: moment().subtract(2, 'hours'), isChecked: false  },
+  { id: 'wed', name: 'Wednesday', to: moment(), from: moment().subtract(2, 'hours'), isChecked: false },
+  { id: 'thu', name: 'Thursday', to: moment(), from: moment().subtract(2, 'hours'), isChecked: false },
+  { id: 'fri', name: 'Friday', to: moment(), from: moment().subtract(2, 'hours'), isChecked: false },
+  { id: 'sat', name: 'Saturday', to: moment(), from: moment().subtract(2, 'hours'), isChecked: false },
+  { id: 'sun', name: 'Sunday', to: moment(), from: moment().subtract(2, 'hours'), isChecked: false },
 ]
 
 export const DAYS_OBJ = {
-  mon: { id: 'mon', name: 'Monday', to: moment(), from: moment(), isChecked: false },
-  tue: { id: 'tue', name: 'Tuesday', to: moment(), from: moment(), isChecked: false },
-  wed: { id: 'wed', name: 'Wednesday', to: moment(), from: moment(), isChecked: false },
-  thu: { id: 'thu', name: 'Thursday', to: moment(), from: moment(), isChecked: false },
-  fri: { id: 'fri', name: 'Friday', to: moment(), from: moment(), isChecked: false },
-  sat: { id: 'sat', name: 'Saturday', to: moment(), from: moment(), isChecked: false },
-  sun: { id: 'sun', name: 'Sunday', to: moment(), from: moment(), isChecked: false },
+  mon: { id: 'mon', name: 'Monday', to: moment(), from: moment().subtract(2, 'hours'), isChecked: false },
+  tue: { id: 'tue', name: 'Tuesday', to: moment(), from: moment().subtract(2, 'hours'), isChecked: false },
+  wed: { id: 'wed', name: 'Wednesday', to: moment(), from: moment().subtract(2, 'hours'), isChecked: false },
+  thu: { id: 'thu', name: 'Thursday', to: moment(), from: moment().subtract(2, 'hours'), isChecked: false },
+  fri: { id: 'fri', name: 'Friday', to: moment(), from: moment().subtract(2, 'hours'), isChecked: false },
+  sat: { id: 'sat', name: 'Saturday', to: moment(), from: moment().subtract(2, 'hours'), isChecked: false },
+  sun: { id: 'sun', name: 'Sunday', to: moment(), from: moment().subtract(2, 'hours'), isChecked: false },
 }
