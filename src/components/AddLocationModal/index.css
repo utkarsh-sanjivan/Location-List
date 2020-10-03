@@ -1,0 +1,50 @@
+.add-location-title {
+  color: #4b657f;
+  font-weight: 600;
+  font-size: 16px;
+}
+
+.input-title-text {
+  color: #949391;
+  font-weight: 700;
+  letter-spacing: -0.6px;
+}
+
+.input-text, .input-text:focus, .input-text:hover {
+  border: none;
+  border-bottom: 1px solid #8a8987;
+  box-shadow: none;
+}
+
+.input-container-left {
+   width: 50%;
+   display: block;
+   margin-right: 10px;
+}
+
+.input-container-right {
+   width: 50%;
+   display: block;
+}
+
+.input-select {
+  width: 100%;
+  border-bottom: 1px solid #8a8987;
+  height: 31px;
+}
+
+.required-error-text {
+  color: #ff0000;
+  font-size: 10px;
+}
+
+.ant-btn {
+  background-color: #ef665c;
+  color: #fff;
+  letter-spacing: -0.5px;
+  font-weight: 700;
+}
+
+.ant-btn-primary {
+  background-color: #28618d;
+}

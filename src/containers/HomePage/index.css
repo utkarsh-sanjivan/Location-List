@@ -1,0 +1,40 @@
+.page-container {
+  height: 100vh;
+  width: 100vw;
+  background-color: #f0f2f3;
+  padding: 2vh 1vw;
+}
+
+.page-header {
+  height: 10vh;
+  display: flex;
+}
+
+.header-left {
+  width: 10%;
+  font-weight: 600;
+  color: #88817f;
+  letter-spacing: -0.89px;
+  font-size: 18px;
+}
+
+.header-right {
+  width: 90%;
+  position: relative;
+}
+
+.add-location-button {
+  position: absolute;
+  top: 0px;
+  right: 0px;
+  height: 6vh;
+  background-color: #2b5e8c;
+  border-radius: 3vh;
+  color: #cadeeb;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.page-table {
+
+}

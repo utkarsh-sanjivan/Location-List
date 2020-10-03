@@ -1,0 +1,37 @@
+.modal-header {
+  display: flex;
+}
+
+.facility-timing-title {
+  color: #4b657f;
+  font-weight: 600;
+  font-size: 16px;
+}
+
+.grid-cell-day {
+  width: 19%;
+}
+
+.grid-cell-from {
+  width: 27%;
+}
+
+.grid-cell-to {
+  width: 27%;
+}
+
+.grid-cell-button {
+  width: 27%;
+}
+
+.modal-body {
+  display: flex;
+  height: 45px;
+}
+
+.apply-to-all-checked-button {
+  background-color: #fff;
+  color: #28618d;
+  border: 1px solid #28618d;
+  border-radius: 5px;
+}

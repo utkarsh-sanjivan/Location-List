@@ -1,12 +1,16 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import './index.css';
-import App from './App';
+import { initDB } from 'react-indexed-db';
+import { DBConfig } from './utils/indexedDB';
+import RouterComponents from './router';
 import * as serviceWorker from './serviceWorker';
+import './index.css';
+ 
+initDB(DBConfig);
 
 ReactDOM.render(
   <React.StrictMode>
-    <App />
+    <RouterComponents />
   </React.StrictMode>,
   document.getElementById('root')
 );
