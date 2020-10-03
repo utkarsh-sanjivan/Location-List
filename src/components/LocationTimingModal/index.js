@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { 
   Modal,
   Checkbox,
@@ -6,19 +6,10 @@ import {
  Button,
 } from 'antd';
 import moment from 'moment';
-import { DAY_LIST } from './../../utils/constant';
+import { DAY_LIST, DAYS_OBJ } from './../../utils/constant';
 import './index.css';
 
 export default function LoactionTiming(props) {
-  const [daysList, setDaysList] = useState(DAY_LIST.map(day => {
-    return {
-      ...day,
-      isChecked: false,
-      to: moment().subtract(2, 'hours'),
-      from: moment(),
-    }
-  }));
-
   return (
     <Modal
       {...props}
@@ -28,9 +19,27 @@ export default function LoactionTiming(props) {
       visible={props.visible}
       okText={'Save'}
       onOk={() => {
-        props.saveLocationTiming(daysList);
+        props.saveLocationTiming();
+        props.setFacilityTiming(DAY_LIST.map(day => {
+          return {
+            ...day,
+            isChecked: false,
+            to: moment().subtract(2, 'hours'),
+            from: moment(),
+          }
+        }));
       }}
-      onCancel={e => props.closeModal()}
+      onCancel={e => {
+        props.setFacilityTiming(DAY_LIST.map(day => {
+          return {
+            ...day,
+            isChecked: false,
+            to: moment().subtract(2, 'hours'),
+            from: moment(),
+          }
+        }));
+        props.closeModal();
+      }}
       width={800}
     >
       <div className='modal-header'>
@@ -39,46 +48,43 @@ export default function LoactionTiming(props) {
         <div className='grid-cell-to'>To</div>
         <div className='grid-cell-button'></div>
       </div>
-      {daysList.map(day => 
+      {props.facilityTiming && Object.keys(props.facilityTiming).map(day => 
         <div className='modal-body'>
           <div className='grid-cell-day'>
-            <Checkbox
-            checked={day.isChecked}
+          <Checkbox
+            checked={props.facilityTiming[day].isChecked}
             onChange={() => {
-              setDaysList(daysList.map(date => {
-                if(date.id === day.id) date.isChecked = !date.isChecked;
-                return date;
-              }));
+              let tempFacilityTiming = { ...props.facilityTiming };
+              tempFacilityTiming[day].isChecked = !tempFacilityTiming[day].isChecked;
+              props.setFacilityTiming(tempFacilityTiming);
             }}
           >
-            {day.name}
+            {props.facilityTiming[day].name}
           </Checkbox>
           </div>
           <div className='grid-cell-from'>
             <TimePicker
-              value={day.to}
+              value={props.facilityTiming[day].to}
               allowClear={false}
               use12Hours
               format={'HH:mm'}
               onChange={event => {
-                setDaysList(daysList.map(date => {
-                  if(date.id === day.id) date.to = event;
-                  return date;
-                }));
+                let tempFacilityTiming = { ...props.facilityTiming };
+                tempFacilityTiming[day].to = event;
+                props.setFacilityTiming(tempFacilityTiming);
               }}
             />
           </div>
           <div className='grid-cell-to'>
             <TimePicker
-              value={day.from}
+              value={props.facilityTiming[day].from}
               allowClear={false}
               use12Hours
               format={'HH:mm'}
               onChange={event => {
-                setDaysList(daysList.map(date => {
-                  if(date.id === day.id) date.from = event;
-                  return date;
-                }));
+                let tempFacilityTiming = { ...props.facilityTiming };
+                tempFacilityTiming[day].from = event;
+                props.setFacilityTiming(tempFacilityTiming);
               }}
             />
           </div>
@@ -86,12 +92,11 @@ export default function LoactionTiming(props) {
             <Button
               className='apply-to-all-checked-button'
               onClick={() => {
-                setDaysList(daysList.map(date => {
-                  if(date.isChecked) {
-                    date = { ...date, to: day.to, from: day.from };
-                  };
-                  return date;
-                }))
+                let tempFacilityTiming = { ...props.facilityTiming };
+                Object.keys(props.facilityTiming).forEach(date => {
+                  if(tempFacilityTiming[date].isChecked) tempFacilityTiming[date] = { ...tempFacilityTiming[date], to: tempFacilityTiming[day].to, from: tempFacilityTiming[day].from };
+                });
+                props.setFacilityTiming(tempFacilityTiming);
               }}
             >
               Apply To All Checked

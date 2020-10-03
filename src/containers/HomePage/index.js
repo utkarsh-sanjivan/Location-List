@@ -4,6 +4,8 @@ import LocationTable from './../../components/LocationTable';
 import AddLocationButton from './../../components/AddLocationButton';
 import AddLocationModal from './../../components/AddLocationModal';
 import LocationTimingModal from './../../components/LocationTimingModal';
+import moment from 'moment';
+import { DAY_LIST, DAYS_OBJ } from './../../utils/constant';
 import './index.css';
 
 export default function HomePage(props) {
@@ -11,20 +13,8 @@ export default function HomePage(props) {
   const [loading, setLoading] = useState(false);
   const [locationList, setLocationList] = useState([]);
   const [viewlocationList, setViewLocationList] = useState([]);
-  const [appointmentList, setAppointmentList] = useState([]);
-  const [currentLocation, setCurrentLocation] = useState({
-    name: '',
-    addressLine1: '',
-    suiteNo: '',
-    addressLine2: '',
-    city: '',
-    state: '',
-    zipCode: '',
-    phoneNumber: '',
-    timeZone: '',
-    facility: '',
-    appointmentList: [],
-  });
+  const [facilityTiming, setFacilityTiming] = useState(DAYS_OBJ);
+  const [currentLocation, setCurrentLocation] = useState({});
   const [addLocationModal, setAddLocationModal] = useState(false);
   const [locationTimingModal, setLocationTimingModal] = useState(false);
   const [recordsPerPage, setRecordsPerPage] = useState(10);
@@ -46,6 +36,8 @@ export default function HomePage(props) {
   }
 
   const addLocation = loc => {
+    delete loc.facility;
+    debugger;
     const id = locationList.length>0? parseInt(locationList[locationList.length-1].id)+1: 1;
     add({ ...loc, id }).then(() => {
       getAllLocations();
@@ -54,19 +46,7 @@ export default function HomePage(props) {
   }
 
   const updateLocation = loc => {
-    setCurrentLocation({
-      name: '',
-      addressLine1: '',
-      suiteNo: '',
-      addressLine2: '',
-      city: '',
-      state: '',
-      zipCode: '',
-      phoneNumber: '',
-      timeZone: '',
-      facility: '',
-      appointmentList: [],
-    });
+    setCurrentLocation({});
     update({ ...loc }).then(() => {
       getAllLocations();
       setAddLocationModal(false);
@@ -144,7 +124,6 @@ export default function HomePage(props) {
         dataSource={viewlocationList}
         loading={loading}
         currentPage={currentPage}
-        appointmentList={appointmentList}
         totalPages={totalPage}
         recordsPerPage={recordsPerPage}
         changeRecordsPerPage={handleRecordsPerPageChange}
@@ -162,28 +141,18 @@ export default function HomePage(props) {
       saveLocation={addLocation}
       updateLocation={updateLocation}
       handleFacility={() => handleFacility()}
+      facilityTiming={facilityTiming}
       closeModal={() =>{ 
-        setCurrentLocation({
-          name: '',
-          addressLine1: '',
-          suiteNo: '',
-          addressLine2: '',
-          city: '',
-          state: '',
-          zipCode: '',
-          phoneNumber: '',
-          timeZone: '',
-          facility: '',
-          appointmentList: [],
-        });
+        setCurrentLocation({});
         setAddLocationModal(false)
       }}
     />
     <LocationTimingModal 
-      appointmentList={appointmentList}
+      facilityTiming={facilityTiming}
       visible={locationTimingModal}
-      saveLocationTiming={list => {
-        setAppointmentList(list);
+      setFacilityTiming={setFacilityTiming}
+      saveLocationTiming={() => {
+        setFacilityTiming(DAYS_OBJ);
         setAddLocationModal(true);
         setLocationTimingModal(false);
       }}

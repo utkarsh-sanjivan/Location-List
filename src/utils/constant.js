@@ -1,3 +1,5 @@
+import moment from 'moment';
+
 export const STATE_LIST = [
   {"code":"AK","name":"Alaska"},
   {"code":"AL","name":"Alabama"},
@@ -460,3 +462,13 @@ export const DAY_LIST = [
   { id: 'sat', name: 'Saturday'  },
   { id: 'sun', name: 'Sunday'  },
 ]
+
+export const DAYS_OBJ = {
+  mon: { id: 'mon', name: 'Monday', to: moment(), from: moment(), isChecked: false },
+  tue: { id: 'tue', name: 'Tuesday', to: moment(), from: moment(), isChecked: false },
+  wed: { id: 'wed', name: 'Wednesday', to: moment(), from: moment(), isChecked: false },
+  thu: { id: 'thu', name: 'Thursday', to: moment(), from: moment(), isChecked: false },
+  fri: { id: 'fri', name: 'Friday', to: moment(), from: moment(), isChecked: false },
+  sat: { id: 'sat', name: 'Saturday', to: moment(), from: moment(), isChecked: false },
+  sun: { id: 'sun', name: 'Sunday', to: moment(), from: moment(), isChecked: false },
+}

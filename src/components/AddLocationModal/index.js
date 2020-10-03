@@ -14,11 +14,11 @@ const AddLocationModal = props => {
     suiteNo: '',
     addressLine2: '',
     city: '',
-    state: '',
+    state: { code: null, name: null },
     zipCode: '',
     phoneNumber: '',
     timeZone: '',
-    facility: '',
+    facility: [],
     appointmentList: [],
   });
   const [isNameValid, setIsNameValid] = useState(true);
@@ -26,9 +26,13 @@ const AddLocationModal = props => {
 
   useEffect(() => {
     if (Object.keys(props.currentLocation).length>0) {
-      setFormState({ ...props.currentLocation })
+      setFormState({ ...props.currentLocation, facility: props.facilityTiming });
     };
   }, [props.currentLocation]);
+
+  useEffect(() => {
+    setFormState({ ...formState, facility: props.facilityTiming });
+  }, [props.facilityTiming]);
 
   return (
     <Modal
@@ -46,6 +50,7 @@ const AddLocationModal = props => {
         } else {
           setIsNameValid(validateName(formState.name));
           setIsZipCodeValid(validateZipCode(formState.zipCode));
+          debugger;
           if(validateName(formState.name) && validateZipCode(formState.zipCode)) props.updateLocation(formState);
         }
       }}
