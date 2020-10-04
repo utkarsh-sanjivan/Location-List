@@ -47,8 +47,7 @@ export default function LoactionTiming(props) {
             <TimePicker
               value={day.from}
               allowClear={false}
-              use12Hours
-              format={'HH:mm'}
+              format={'HH:mm A'}
               onChange={event => {
                 props.setFacilityTiming(props.facilityTiming.map(date => {
                   if(date.id === day.id) date.from = event;
@@ -61,8 +60,7 @@ export default function LoactionTiming(props) {
             <TimePicker
               value={day.to}
               allowClear={false}
-              use12Hours
-              format={'HH:mm'}
+              format={'HH:mm A'}
               onChange={event => {
                 props.setFacilityTiming(props.facilityTiming.map(date => {
                   if(date.id === day.id) date.to = event;
