@@ -233,6 +233,11 @@
   width: 20vw;
 }
 
+.icon-empty-container {
+  height: 16px;
+  width: 20vw;
+}
+
 .tag-element {
     background-color: #28618d !important;
     color: #fff !important;

@@ -81,22 +81,30 @@ const TableDetails = props => {
         </div>
         <div className='page-number-info-container'>{props.currentPage} - {props.totalPages} of {props.totalPages}</div>
         <div className='page-change-icon-container'>
-          <VerticalRightOutlined
-            className='page-change-icon'
-            onClick={() => props.startPage()}
-          />
-          <LeftOutlined
-            className='page-change-icon'
-            onClick={() => props.previousPage()}
-          />
-          <RightOutlined
-            className='page-change-icon'
-            onClick={() => props.nextPage()}
-          />
-          <VerticalLeftOutlined
-            className='page-change-icon'
-            onClick={() => props.lastPage()}
-          />
+          {props.currentPage !==1? 
+            <VerticalRightOutlined
+              className='page-change-icon'
+              onClick={() => props.startPage()}
+            />
+          : <div className='icon-empty-container'></div>}
+          {props.currentPage !==1? 
+            <LeftOutlined
+              className='page-change-icon'
+              onClick={() => props.previousPage()}
+            />
+          : <div className='icon-empty-container'></div>}
+          {props.currentPage !==props.totalPages? 
+            <RightOutlined
+              className='page-change-icon'
+              onClick={() => props.nextPage()}
+            />
+          : <div className='icon-empty-container'></div>}
+          {props.currentPage !==props.totalPages? 
+            <VerticalLeftOutlined
+              className='page-change-icon'
+              onClick={() => props.lastPage()}
+            />
+          : <div className='icon-empty-container'></div>}
         </div>
       </div>
     </div>
