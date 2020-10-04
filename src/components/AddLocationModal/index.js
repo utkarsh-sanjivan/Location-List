@@ -17,6 +17,7 @@ const AddLocationModal = props => {
     state: { code: null, name: null },
     zipCode: '',
     phoneNumber: '',
+    phoneNumberValue: 0,
     timeZone: '',
     facility: [],
     appointmentList: [],
@@ -25,7 +26,7 @@ const AddLocationModal = props => {
   const [isZipCodeValid, setIsZipCodeValid] = useState(true);
 
   useEffect(() => {
-    if (Object.keys(props.currentLocation).length>0) setFormState({ ...props.currentLocation })
+    if (Object.keys(props.currentLocation).length>0) setFormState({ ...props.currentLocation, phoneNumberValue: props.currentLocation.phoneNo && props.currentLocation.phoneNo !== ''? parseInt(props.currentLocation.phoneNo.replace(/[^0-9]/g, '')): 0 })
     else setFormState({
       name: '',
       addressLine1: '',
@@ -35,6 +36,7 @@ const AddLocationModal = props => {
       state: { code: null, name: null },
       zipCode: '',
       phoneNumber: '',
+      phoneNumberValue: 0,
       timeZone: '',
       facility: [],
       appointmentList: [],
@@ -43,7 +45,6 @@ const AddLocationModal = props => {
 
   const tagRender = props => {
     const { label, value, closable, onClose } = props;
-
     return (
       <Tag 
         className='tag-element'
@@ -57,6 +58,12 @@ const AddLocationModal = props => {
     )
   }
 
+  const getPhoneInt = val => {
+    if (Number.isInteger(val)) return val;
+    else if (parseInt(val)) return parseInt(val);
+    else return parseInt(val.replace(/[^0-9]/g, ''));
+  }
+
   return (
     <Modal
       {...props}
@@ -66,15 +73,14 @@ const AddLocationModal = props => {
       visible={props.visible}
       okText={Object.keys(props.currentLocation).length===0? 'Save': 'Edit'}
       onOk={() => {
-        debugger;
         if (Object.keys(props.currentLocation).length===0) {
           setIsNameValid(validateName(formState.name));
           setIsZipCodeValid(validateZipCode(formState.zipCode));
-          if(validateName(formState.name) && validateZipCode(formState.zipCode)) props.saveLocation(formState);
+          if(validateName(formState.name) && validateZipCode(formState.zipCode)) props.saveLocation({ ...formState, facility: props.facilityTiming });
         } else {
           setIsNameValid(validateName(formState.name));
           setIsZipCodeValid(validateZipCode(formState.zipCode));
-          if(validateName(formState.name) && validateZipCode(formState.zipCode)) props.updateLocation(formState);
+          if(validateName(formState.name) && validateZipCode(formState.zipCode)) props.updateLocation({ ...formState, facility: props.facilityTiming });
         }
       }}
       onCancel={e => props.closeModal()}
@@ -176,9 +182,9 @@ const AddLocationModal = props => {
               value={formState.phoneNumber}
               placeholder='Phone Number'
               className='input-text'
-              onChange={event => setFormState({ ...formState, phoneNumber: event.target.value })}
-              onPressEnter={event => setFormState({ ...formState, phoneNumber: normalizePhoneNumber(event.target.value) })}
-              onBlur={event => setFormState({ ...formState, phoneNumber: normalizePhoneNumber(event.target.value) })}
+              onChange={event => setFormState({ ...formState, phoneNumberValue: getPhoneInt(event.target.value), phoneNumber: event.target.value })}
+              onPressEnter={event => setFormState({ ...formState, phoneNumberValue: getPhoneInt(event.target.value), phoneNumber: normalizePhoneNumber(event.target.value) })}
+              onBlur={event => setFormState({ ...formState, phoneNumberValue: getPhoneInt(event.target.value), phoneNumber: normalizePhoneNumber(event.target.value) })}
             />
           </div>
         </div>
@@ -206,7 +212,6 @@ const AddLocationModal = props => {
           <Select
             value={formState.appointmentList.join(',')}
             mode="multiple"
-            placeholder='Appointment Pool'
             bordered={false}
             showArrow={false}
             className='input-select'

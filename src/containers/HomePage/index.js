@@ -20,6 +20,7 @@ export default function HomePage(props) {
   const [recordsPerPage, setRecordsPerPage] = useState(10);
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPage, setTotalPage] = useState(1);
+  const [sortObj, setSortObj] = useState({});
  
   useEffect(() => {
     getAllLocations();
@@ -53,6 +54,7 @@ export default function HomePage(props) {
     add({ ...loc, id }).then(() => {
       getAllLocations();
       setAddLocationModal(false);
+      setCurrentLocation({});
       setFacilityTiming(DAY_LIST);
     });
   }
@@ -63,6 +65,8 @@ export default function HomePage(props) {
     update({ ...loc }).then(() => {
       getAllLocations();
       setAddLocationModal(false);
+      setCurrentLocation({});
+      setFacilityTiming(DAY_LIST);
     });
   }
 
@@ -119,6 +123,53 @@ export default function HomePage(props) {
     setLocationTimingModal(true);
   }
 
+  const sortTable = type => {
+    switch(type) {
+      case 'name':
+        const sortOrderName = sortObj.hasOwnProperty('name')? !sortObj.name: true;
+        locationList.sort((fEl, sEl) => {
+          let nameA = fEl.name.toUpperCase();
+          let nameB = sEl.name.toUpperCase();
+          if (nameA < nameB) return sortOrderName? -1: 1;
+          if (nameA > nameB) return sortOrderName? 1: -1;
+          return 0;
+        })
+        setViewLocationList(locationList.slice(recordsPerPage*(currentPage-1), recordsPerPage*currentPage));
+        setSortObj({ name: sortOrderName });
+        break;
+
+      case 'address':
+        const sortOrderAddress = sortObj.hasOwnProperty('address')? !sortObj.address: true;
+        locationList.sort((fEl, sEl) => {
+          let addressA = fEl.addressLine1? fEl.addressLine1.toUpperCase(): '';
+          let addressB = sEl.addressLine1? sEl.addressLine1.toUpperCase(): '';
+          if (addressA < addressB) return sortOrderAddress? -1: 1;
+          if (addressA > addressB) return sortOrderAddress? 1: -1;
+          return 0;
+        })
+        setViewLocationList(locationList.slice(recordsPerPage*(currentPage-1), recordsPerPage*currentPage));
+        setSortObj({ address: sortOrderAddress });
+        break;
+
+      case 'phoneNo':
+        const sortOrderPhoneNumber = sortObj.hasOwnProperty('phoneNo')? !sortObj.phoneNo: true;
+        locationList.sort((fEl, sEl) => {
+          let phoneNoA = fEl.phoneNumberValue;
+          let phoneNoB = sEl.phoneNumberValue;
+          if (phoneNoA < phoneNoB) return sortOrderPhoneNumber? -1: 1;
+          if (phoneNoA > phoneNoB) return sortOrderPhoneNumber? 1: -1;
+          return 0;
+        })
+        // debugger;
+        setViewLocationList(locationList.slice(recordsPerPage*(currentPage-1), recordsPerPage*currentPage));
+        setSortObj({ phoneNo: sortOrderPhoneNumber });
+        break;
+
+      default:
+        break;
+    }
+  }
+
   return (<div className='page-container'>
     <div className='page-header'>
       <div className='header-left'>
@@ -147,10 +198,12 @@ export default function HomePage(props) {
         previousPage={() => handleMovePage('previousPage')}
         nextPage={() => handleMovePage('nextPage')}
         lastPage={() => handleMovePage('lastPage')}
+        sortTable={sortTable}
       />
     </div>
     <AddLocationModal
       currentLocation={currentLocation}
+      facilityTiming={facilityTiming}
       visible={addLocationModal}
       saveLocation={addLocation}
       updateLocation={updateLocation}

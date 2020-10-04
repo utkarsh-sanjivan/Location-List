@@ -3,8 +3,16 @@
   background-color: #f0f2f3;
 }
 
+.table-loading-spinner {
+  min-height: 40vw !important;
+}
+
+.table-loading-alert {
+  min-height: 40vw !important;
+}
+
 .ant-empty-image {
-  height: 180px;
+  height: 180px !important;
   margin-top: 30px;
 }
 
@@ -81,6 +89,7 @@
   font-size: 14px;
   font-weight: 500;
   width: 22vw;
+  cursor: pointer;
 }
 
 .header-action {

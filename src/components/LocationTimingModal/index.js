@@ -43,20 +43,6 @@ export default function LoactionTiming(props) {
             {day.name}
           </Checkbox>
           </div>
-          <div className='grid-cell-from'>
-            <TimePicker
-              value={day.to}
-              allowClear={false}
-              use12Hours
-              format={'HH:mm'}
-              onChange={event => {
-                props.setFacilityTiming(props.facilityTiming.map(date => {
-                  if(date.id === day.id) date.to = event;
-                  return date;
-                }));
-              }}
-            />
-          </div>
           <div className='grid-cell-to'>
             <TimePicker
               value={day.from}
@@ -66,6 +52,20 @@ export default function LoactionTiming(props) {
               onChange={event => {
                 props.setFacilityTiming(props.facilityTiming.map(date => {
                   if(date.id === day.id) date.from = event;
+                  return date;
+                }));
+              }}
+            />
+          </div>
+          <div className='grid-cell-from'>
+            <TimePicker
+              value={day.to}
+              allowClear={false}
+              use12Hours
+              format={'HH:mm'}
+              onChange={event => {
+                props.setFacilityTiming(props.facilityTiming.map(date => {
+                  if(date.id === day.id) date.to = event;
                   return date;
                 }));
               }}

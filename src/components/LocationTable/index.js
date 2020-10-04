@@ -1,5 +1,5 @@
 import React from 'react';
-import { Table, Empty, Skeleton } from 'antd';
+import { Table, Empty, Spin, Alert } from 'antd';
 import {
   EditOutlined,
   DeleteOutlined,
@@ -14,9 +14,9 @@ const TableDetails = props => {
   const columns = [{
     title: () => <div className='header-container'>
       <div className='header-id'></div>
-      <div className='header-middle'>Location Name</div>
-      <div className='header-middle'>Address</div>
-      <div className='header-middle'>Phone No.</div>
+      <div className='header-middle' onClick={() => props.sortTable('name')}>Location Name</div>
+      <div className='header-middle' onClick={() => props.sortTable('address')}>Address</div>
+      <div className='header-middle' onClick={() => props.sortTable('phoneNo')}>Phone No.</div>
       <div className='header-action'></div>
     </div>,
     dataIndex: 'id',
@@ -77,10 +77,14 @@ const TableDetails = props => {
   return (
     <div className="location-table-container">
       {props.loading?
-        <Skeleton
-          loading={true}
-          active
-        />
+        <Spin tip="Loading..." className='table-loading-spinner'>
+          <Alert
+            message="Location Loading..."
+            className='table-loading-alert'
+            description="We are loading your locations!"
+            type="info"
+          />
+        </Spin>
         : props.dataSource.length === 0?
           <Empty
             image={<div className='no-location-image-container'><i class="fa fa-map-marker no-location-image" aria-hidden="true"></i></div>}
