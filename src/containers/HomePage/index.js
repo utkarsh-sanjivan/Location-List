@@ -21,10 +21,6 @@ export default function HomePage(props) {
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPage, setTotalPage] = useState(1);
   const [sortObj, setSortObj] = useState({});
- 
-  useEffect(() => {
-    getAllLocations();
-  }, []);
 
   const getAllLocations = () => {
     setLoading(true);
@@ -168,6 +164,8 @@ export default function HomePage(props) {
         break;
     }
   }
+  
+  useEffect(getAllLocations, []);
 
   return (<div className='page-container'>
     <div className='page-header'>

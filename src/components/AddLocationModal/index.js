@@ -216,7 +216,6 @@ const AddLocationModal = props => {
             showArrow={false}
             className='input-select'
             dropdownStyle={{ display: 'none' }}
-            value={formState.appointmentList}
             tagRender={tagRender}
             onChange={event => 
               setFormState({
