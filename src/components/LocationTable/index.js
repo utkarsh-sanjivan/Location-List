@@ -7,16 +7,44 @@ import {
   LeftOutlined,
   RightOutlined,
   VerticalRightOutlined,
+  CaretUpOutlined,
+  CaretDownOutlined,
 } from '@ant-design/icons';
 import './index.css';
 
 const TableDetails = props => {
+  // CaretUpOutlined
+  // CaretDownOutlined
   const columns = [{
     title: () => <div className='header-container'>
       <div className='header-id'></div>
-      <div className='header-middle' onClick={() => props.sortTable('name')}>Location Name</div>
-      <div className='header-middle' onClick={() => props.sortTable('address')}>Address</div>
-      <div className='header-middle' onClick={() => props.sortTable('phoneNo')}>Phone No.</div>
+      <div className='header-middle' onClick={() => props.sortTable('name')}>
+        Location Name
+        {props.sorterObject && props.sorterObject.hasOwnProperty('name')? 
+          props.sorterObject.name? 
+            <CaretUpOutlined className='pagination-arrow-icon' />
+            : <CaretDownOutlined className='pagination-arrow-icon' />
+          : null
+        }
+      </div>
+      <div className='header-middle' onClick={() => props.sortTable('address')}>
+        Address
+        {props.sorterObject && props.sorterObject.hasOwnProperty('address')? 
+          props.sorterObject.address? 
+            <CaretUpOutlined className='pagination-arrow-icon' />
+            : <CaretDownOutlined className='pagination-arrow-icon' />
+          : null
+        }
+      </div>
+      <div className='header-middle' onClick={() => props.sortTable('phoneNo')}>
+        Phone No.
+        {props.sorterObject && props.sorterObject.hasOwnProperty('phoneNo')? 
+          props.sorterObject.phoneNo? 
+            <CaretUpOutlined className='pagination-arrow-icon' />
+            : <CaretDownOutlined className='pagination-arrow-icon' />
+          : null
+        }
+      </div>
       <div className='header-action'></div>
     </div>,
     dataIndex: 'id',

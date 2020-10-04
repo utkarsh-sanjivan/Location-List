@@ -92,6 +92,11 @@
   cursor: pointer;
 }
 
+.pagination-arrow-icon {
+  color: #262626 !important;
+  font-size: 17px;
+}
+
 .header-action {
   background-color: #fff;
   border-top-right-radius: 20px;

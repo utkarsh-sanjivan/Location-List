@@ -160,7 +160,6 @@ export default function HomePage(props) {
           if (phoneNoA > phoneNoB) return sortOrderPhoneNumber? 1: -1;
           return 0;
         })
-        // debugger;
         setViewLocationList(locationList.slice(recordsPerPage*(currentPage-1), recordsPerPage*currentPage));
         setSortObj({ phoneNo: sortOrderPhoneNumber });
         break;
@@ -191,6 +190,7 @@ export default function HomePage(props) {
         currentPage={currentPage}
         totalPages={totalPage}
         recordsPerPage={recordsPerPage}
+        sorterObject={sortObj}
         changeRecordsPerPage={handleRecordsPerPageChange}
         editLocation={handleEditLocation}
         deleteLocation={deleteLocation}
