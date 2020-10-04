@@ -210,12 +210,12 @@ const AddLocationModal = props => {
         <div className='input-container-right'>
           <div className='input-title-text'>Appointment Pool</div>
           <Select
-            value={formState.appointmentList.join(',')}
             mode="multiple"
             bordered={false}
             showArrow={false}
             className='input-select'
             dropdownStyle={{ display: 'none' }}
+            value={formState.appointmentList}
             tagRender={tagRender}
             onChange={event => 
               setFormState({

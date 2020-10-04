@@ -126,7 +126,7 @@ const TableDetails = props => {
             image={<div className='no-location-image-container'><i class="fa fa-map-marker no-location-image" aria-hidden="true"></i></div>}
             description={<>
               <div className='no-location-title'>There is no location added right now</div>
-              <div className='no-location-sub-title'>Kindly Add Aour Location First</div>
+              <div className='no-location-sub-title'>Kindly Add Your Location First</div>
             </>}
           />
           : <Table
