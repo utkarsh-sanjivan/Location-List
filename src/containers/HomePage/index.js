@@ -175,7 +175,11 @@ export default function HomePage(props) {
       <div className='header-right'>
         <AddLocationButton
           className="add-location-button"
-          onClick={() => setAddLocationModal(true)}
+          onClick={() => {
+            setCurrentLocation({});
+            setFacilityTiming(DAY_LIST.map(day => { return { ...day, to: moment(), from: moment().subtract(2, 'hours'), isChecked: false } }));
+            setAddLocationModal(true);
+          }}
         >
           + Add Location
         </AddLocationButton>
@@ -217,7 +221,6 @@ export default function HomePage(props) {
       visible={locationTimingModal}
       setFacilityTiming={setFacilityTiming}
       saveLocationTiming={() => {
-        setFacilityTiming(DAY_LIST);
         setAddLocationModal(true);
         setLocationTimingModal(false);
       }}
