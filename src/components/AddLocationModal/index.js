@@ -220,7 +220,7 @@ const AddLocationModal = props => {
             onChange={event => 
               setFormState({
                 ...formState,
-                appointmentList: [...event.filter(tag => tag !== '')]
+                appointmentList: [...event.filter(tag => tag.trim().length !== 0)]
             })
             }
             onInputKeyDown={event => {
@@ -229,7 +229,7 @@ const AddLocationModal = props => {
                   ...formState,
                   appointmentList: [
                     ...formState.appointmentList,
-                    ...event.target.value.split(',').filter(tag => tag !== '')
+                    ...event.target.value.split(',').filter(tag => tag.trim().length !== 0)
                   ]
                 });
                 event.target.blur();
