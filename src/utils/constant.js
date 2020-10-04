@@ -462,13 +462,3 @@ export const DAY_LIST = [
   { id: 'sat', name: 'Saturday', to: moment(), from: moment().subtract(2, 'hours'), isChecked: false },
   { id: 'sun', name: 'Sunday', to: moment(), from: moment().subtract(2, 'hours'), isChecked: false },
 ]
-
-export const DAYS_OBJ = {
-  mon: { id: 'mon', name: 'Monday', to: moment(), from: moment().subtract(2, 'hours'), isChecked: false },
-  tue: { id: 'tue', name: 'Tuesday', to: moment(), from: moment().subtract(2, 'hours'), isChecked: false },
-  wed: { id: 'wed', name: 'Wednesday', to: moment(), from: moment().subtract(2, 'hours'), isChecked: false },
-  thu: { id: 'thu', name: 'Thursday', to: moment(), from: moment().subtract(2, 'hours'), isChecked: false },
-  fri: { id: 'fri', name: 'Friday', to: moment(), from: moment().subtract(2, 'hours'), isChecked: false },
-  sat: { id: 'sat', name: 'Saturday', to: moment(), from: moment().subtract(2, 'hours'), isChecked: false },
-  sun: { id: 'sun', name: 'Sunday', to: moment(), from: moment().subtract(2, 'hours'), isChecked: false },
-}

@@ -5,7 +5,7 @@ import AddLocationButton from './../../components/AddLocationButton';
 import AddLocationModal from './../../components/AddLocationModal';
 import LocationTimingModal from './../../components/LocationTimingModal';
 import moment from 'moment'; 
-import { DAY_LIST, DAYS_OBJ } from './../../utils/constant';
+import { DAY_LIST } from './../../utils/constant';
 import './index.css';
 
 export default function HomePage(props) {
@@ -157,6 +157,7 @@ export default function HomePage(props) {
       handleFacility={() => handleFacility()}
       closeModal={() =>{ 
         setCurrentLocation({});
+        setFacilityTiming(DAY_LIST);
         setAddLocationModal(false)
       }}
     />

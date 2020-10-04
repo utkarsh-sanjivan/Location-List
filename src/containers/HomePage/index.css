@@ -1,5 +1,6 @@
 .page-container {
   width: 100vw;
+  min-height: 100vh;
   background-color: #f0f2f3;
   padding: 2vh 1vw;
 }

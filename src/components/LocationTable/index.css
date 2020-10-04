@@ -127,7 +127,6 @@
   font-size: 14px;
   font-weight: 500;
   width: 22vw;
-  text-align: center;
   color: #8a8987;
   white-space: nowrap;
   overflow: hidden;
@@ -218,4 +217,11 @@
   color: #8a8987 !important;
   cursor: pointer !important;
   width: 20vw;
+}
+
+.tag-element {
+    background-color: #28618d !important;
+    color: #fff !important;
+    font-size: 12px !important;
+    font-weight: 700 !important;
 }

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Modal, Input, Select, Button } from 'antd';
+import { Modal, Input, Select, Button, Tag } from 'antd';
 import { STATE_LIST, TIMEZONE_LIST } from './../../utils/constant';
 import { normalizePhoneNumber } from './../../utils/format';
 import { validateName, validateZipCode } from './../../utils/validate';
@@ -25,8 +25,37 @@ const AddLocationModal = props => {
   const [isZipCodeValid, setIsZipCodeValid] = useState(true);
 
   useEffect(() => {
-    if (Object.keys(props.currentLocation).length>0) setFormState({ ...props.currentLocation });
+    if (Object.keys(props.currentLocation).length>0) setFormState({ ...props.currentLocation })
+    else setFormState({
+      name: '',
+      addressLine1: '',
+      suiteNo: '',
+      addressLine2: '',
+      city: '',
+      state: { code: null, name: null },
+      zipCode: '',
+      phoneNumber: '',
+      timeZone: '',
+      facility: [],
+      appointmentList: [],
+    });
   }, [props.currentLocation])
+
+  const tagRender = props => {
+    const { label, value, closable, onClose } = props;
+
+    return (
+      <Tag 
+        className='tag-element'
+        color={value}
+        closable={closable}
+        onClose={onClose}
+        style={{ marginRight: 3 }}
+      >
+        {label}
+      </Tag>
+    )
+  }
 
   return (
     <Modal
@@ -37,6 +66,7 @@ const AddLocationModal = props => {
       visible={props.visible}
       okText={Object.keys(props.currentLocation).length===0? 'Save': 'Edit'}
       onOk={() => {
+        debugger;
         if (Object.keys(props.currentLocation).length===0) {
           setIsNameValid(validateName(formState.name));
           setIsZipCodeValid(validateZipCode(formState.zipCode));
@@ -181,15 +211,21 @@ const AddLocationModal = props => {
             showArrow={false}
             className='input-select'
             dropdownStyle={{ display: 'none' }}
-            onChange={() => {}}
             value={formState.appointmentList}
+            tagRender={tagRender}
+            onChange={event => 
+              setFormState({
+                ...formState,
+                appointmentList: [...event.filter(tag => tag !== '')]
+            })
+            }
             onInputKeyDown={event => {
               if (event.key === 'Enter') {
                 setFormState({
                   ...formState,
                   appointmentList: [
                     ...formState.appointmentList,
-                    ...event.target.value.split(',')
+                    ...event.target.value.split(',').filter(tag => tag !== '')
                   ]
                 });
                 event.target.blur();
