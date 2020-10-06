@@ -110,6 +110,7 @@
   display: flex;
   border-radius: 20px;
   box-shadow: 7px 7px 5px 0px #d1d3d5;
+  margin-left: 15px;
 }
 
 .body-id {

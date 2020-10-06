@@ -7,7 +7,7 @@ import {
 } from 'antd';
 import './index.css';
 
-export default function LoactionTiming(props) {
+export default function LocationTiming(props) {
   return (
     <Modal
       {...props}
